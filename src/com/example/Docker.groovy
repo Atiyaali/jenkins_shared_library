@@ -10,5 +10,16 @@ class Docker implements Serializable{
     script.sh "docker build -t ${frontimage} ./frontend"
     script.sh "docker build -t ${backimage} ./backend"
     }
+    def dockerlogin(){
+        script.withCredentials([
+        script.usernamePassword(credentialsId: 'dockerhub_creds' , usernameVariable: 'USER' , passwordVariable: 'PASSWORD' )]){
+            script.sh 'echo  "${script.PASSWORD}" | docker login -u "${script.USER}" --password-stdin'
+        }
+    }
+    def dockerpush(String frontimage , String backimage){
+    script.sh "docker push ${frontimage}"
+    script.sh "docker push ${backimage}"  
+
+    }
 
 }
