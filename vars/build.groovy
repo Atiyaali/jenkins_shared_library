@@ -1,4 +1,4 @@
-#!/user/bin/env groovy
+
 
 def call() {
     echo "building docker image"
