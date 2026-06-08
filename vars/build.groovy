@@ -1,7 +1,7 @@
 
 
-def call() {
+def call(String frontimage , String backimage) {
     echo "building docker image"
-    sh 'docker build -t atiyadocker/wandarlustfrontpipeline:latest ./frontend'
-    sh 'docker build -t atiyadocker/wandarlustbackpipeline:latest ./backend'
+    sh "docker build -t ${frontimage} ./frontend"
+    sh "docker build -t ${backimage} ./backend"
 }
