@@ -1,14 +1,19 @@
 package com.example
 
 class Docker implements Serializable{
+    
     def script
     Docker(script){
         this.script = script
     } 
+      def tag = script.sh(
+                script: 'git describe --tags',
+                returnStdout: true
+            ).trim()
     def dockerimagebuild(String frontimage , String backimage){
     script.echo "building docker image through src"
-    script.sh "docker build -t ${frontimage} ./frontend"
-    script.sh "docker build -t ${backimage} ./backend"
+    script.sh "docker build -t ${frontimage}:${tag} ./frontend"
+    script.sh "docker build -t ${backimage}:${tag} ./backend"
     }
     def dockerlogin(){
         script.withCredentials([
@@ -17,8 +22,8 @@ class Docker implements Serializable{
         }
     }
     def dockerpush(String frontimage , String backimage){
-    script.sh "docker push ${frontimage}"
-    script.sh "docker push ${backimage}"  
+    script.sh "docker push ${frontimage}:${tag}"
+    script.sh "docker push ${backimage}:${tag}"  
 
     }
 
