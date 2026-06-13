@@ -1,4 +1,4 @@
 import com.example.Docker
-def call(String frontimage , String backimage) {
-     return new Docker(this).dockerpush(frontimage , backimage)
+def call(String imagename ){
+     return new Docker(this).dockerpush(imagename)
 }

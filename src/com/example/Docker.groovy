@@ -6,14 +6,8 @@ class Docker implements Serializable{
     Docker(script){
         this.script = script
     } 
-    def dockerbackimagebuild(String backimage , String filepath){
-    script.sh "docker build -f ${filepath} -t ${backimage} ."
-    }
-     def dockerfrontimagebuild(String frontimage , String filepath){
-    script.sh "docker build -f ${filepath} -t ${frontimage} ."
-    }
-    def dockernginximagebuild(String nginximage , String filepath){
-      script.sh "docker build -f ${filepath} -t ${nginximage} ."
+    def dockerimagebuild(String imagename , String filepath){
+    script.sh "docker build -f ${filepath} -t ${imagename} ."
     }
     def dockerlogin(){
         script.withCredentials([
@@ -21,14 +15,8 @@ class Docker implements Serializable{
             script.sh 'echo  $PASSWORD | docker login -u $USER --password-stdin'
         }
     }
-    def backendpush(String backimage){
-    script.sh "docker back image push ${backimage}"  
-    }
-    def frontendpush(String frontimage){
-    script.sh "docker front image push ${frontimage}"
-    }
-    def nginxpush(String nginximage){
-    script.sh "docker nginx image push ${nginximage}"
+    def dockerpush(String imagename){
+    script.sh "docker image push ${imagename}"  
     }
 
 }
