@@ -10,6 +10,13 @@ class Deploy implements Serializable{
     def sshDeploy(String server , String VERSION){
    script.sshagent(['ec2-server-key']){
     script.sh """
+     scp -o StrictHostKeyChecking=no \
+        docker-compose.yml \
+        ${server}:~/wandarlust/
+
+    scp -o StrictHostKeyChecking=no -r \
+        nginx \
+        ${server}:~/wandarlust/
     ssh -o StrictHostKeyChecking=no ${server} '
     set -e 
     cd ~/wandarlust 
