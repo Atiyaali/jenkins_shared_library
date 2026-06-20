@@ -13,10 +13,10 @@ class Deploy implements Serializable{
      scp -o StrictHostKeyChecking=no \
         docker-compose.yml \
         ${server}:~/wandarlust/
-
+    ssh -o StrictHostKeyChecking=no ${server} "mkdir -p ~/wandarlust/nginx"
     scp -o StrictHostKeyChecking=no -r \
-        nginx \
-        ${server}:~/wandarlust/
+    nginx/ssl \
+    ${server}:~/wandarlust/nginx/
     ssh -o StrictHostKeyChecking=no ${server} '
     set -e 
     cd ~/wandarlust 
