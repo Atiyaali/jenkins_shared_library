@@ -14,7 +14,7 @@ class Docker implements Serializable{
     [$class: 'AmazonWebServicesCredentialsBinding',
      credentialsId: 'aws-creds']
 ]) {
-    sh '''
+    script.sh '''
     aws ecr get-login-password --region us-east-1 | \
     docker login --username AWS --password-stdin \
     590398356271.dkr.ecr.us-east-1.amazonaws.com
